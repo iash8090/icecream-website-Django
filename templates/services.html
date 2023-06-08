@@ -1,0 +1,64 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+{% load static %}
+<link rel='stylesheet' type='text/css' href='{% static '/css/services.css' %}'>
+<div class="container py-5">
+
+    <!-- For demo purpose -->
+    <div class="row text-center text-white mb-5">
+      <div class="col-lg-7 mx-auto">
+        <h1 class="display-4">Choose The Flavor</h1>
+      </div>
+    </div>
+    <!-- End -->
+  
+    <div class="row">
+      <div class="col-lg-8 mx-auto">
+  
+        <!-- List group-->
+        <ul class="list-group shadow">
+          {% for dtl in dtls %}
+          <!-- list group item-->
+          <li class="list-group-item">
+            <!-- Custom content-->
+            <div class="media align-items-lg-center flex-column flex-lg-row p-3">
+              <div class="media-body order-2 order-lg-1">
+              
+<!-- standard way to call dynamic url -->
+              <!--  <a href='/icd/{{dtl.id}}'>  -->
+<!-- Relative way to call dynamic url-->
+                <a href = '{% url 'app1:Ice_cream_details' dtl.id %}'>
+                <h5 class="mt-0 font-weight-bold mb-2">{{dtl.name}}</h5></a>
+                <p class="font-italic text-muted mb-0 small">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Suscipit fuga autem maiores necessitatibus.</p>
+                <div class="d-flex align-items-center justify-content-between mt-1">
+                  <h6 class="font-weight-bold my-2">₹{{dtl.price}}</h6>
+                  <ul class="list-inline small">
+                    <li class="list-inline-item m-0"><i class="fa fa-star text-success"></i></li>
+                    <li class="list-inline-item m-0"><i class="fa fa-star text-success"></i></li>
+                    <li class="list-inline-item m-0"><i class="fa fa-star text-success"></i></li>
+                    <li class="list-inline-item m-0"><i class="fa fa-star text-success"></i></li>
+                    <li class="list-inline-item m-0"><i class="fa fa-star-o text-gray"></i></li>
+                  </ul>
+                </div>
+              </div><img src="{{dtl.img.url}}" alt="Generic placeholder image" width="200" class="ml-lg-5 order-1 order-lg-2">
+            </div>
+            <!-- End -->
+          </li>
+          <!-- End -->
+          {% endfor %}
+  
+        </ul>
+        <!-- End -->
+      </div>
+    </div>
+  </div>
+
+
+{% endblock content %}
+
+
+{% block title %}
+Services
+{% endblock title %}

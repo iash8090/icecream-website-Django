@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <link rel="stylesheet" type="text/css" href="/static/css/sign-in.css">
+<div class="wrapper fadeInDown">
+  <div id="formContent">
+    <!-- Tabs Titles -->
+
+    <!-- Icon -->
+    <div class="fadeIn first">
+      <img src="/static/img/profile_icon.svg" width="10px" height="100px" id="icon" alt="User Icon" />
+    </div>
+
+    <!-- Login Form -->
+    <form  method="post" action="/users/login/">
+          {% csrf_token %}
+
+      <input type="text" class="fadeIn second" id="login" name="Username" placeholder="Enter your name" required>
+      <input type="password" class="fadeIn third" id="password" name="Password" placeholder="Password" required>
+      <input type="submit" class="fadeIn fourth" value="Log In">
+    </form>
+
+
+    <!-- Remind Passowrd -->
+    <div id="formFooter">
+      <div class="d-flex justify-content-center links">
+        Don't have an account?  <a class="underlineHover" href="/users/register">Sign Up</a>
+      </div>
+      <a class="underlineHover" href="#">Forgot Password?</a>
+      <p class="text-body-secondary">&copy; 2017–2023</p>
+    </div>
+
+  </div>
+</div>
+
+{% endblock content %}
+
+
+{% block title %}
+Login
+{% endblock title %}

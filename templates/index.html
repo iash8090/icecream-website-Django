@@ -1,0 +1,100 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+{% load static %}
+
+<div class="container-fluid ">
+<div id="carouselExampleCaptions" class="carousel slide">
+  <div class="carousel-indicators">
+    <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+    <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="1" aria-label="Slide 2"></button>
+    <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="2" aria-label="Slide 3"></button>
+  </div>
+
+  <div class="carousel-inner my-2">
+    <div class="carousel-item active">
+      <a href="{% static '/img/1.jfif' %}">
+      <center><img src="{% static '/img/1.jfif' %} " class="d-block" alt="..." width="1300" height="500"></center>
+      </a>
+        <div class="carousel-caption d-none d-md-block">
+        <h5>Walnut Chocolate Cone</h5>
+        <p class="h6 d-inline p-2" style="background: green; border-radius:63px">chew it, lick it, taste it, swallow it .</p>
+      </div>
+    </div>
+    <div class="carousel-item">
+      <a href="{% static '/img/2.jfif' %}">
+      <img src="{% static '/img/2.jfif' %}" class="d-block w-100" alt="..." width="1300" height="500">
+      </a>
+        <div class="carousel-caption d-none d-md-block " >
+        <h5>Have some CupCakes...</h5>
+        <p class="h6 d-inline p-2 " style="background: green; border-radius:63px">Serve as Dessert </p>
+      </div>
+    </div>
+    <div class="carousel-item">
+      <a href="/static/img/3.jfif">
+      <img src="/static/img/3.jfif" class="d-block w-100" alt="..." width="1300" height="500">
+      </a>
+        <div class="carousel-caption d-none d-md-block p-2 bg-black bg-opacity-50 "  style=" border-radius:53px"  >
+        <h5>Butterscotch, Chocolate, Vanilla...</h5>
+        <p>Different flavours for different people</p>
+      </div>
+    </div>
+  </div>
+  <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="prev">
+    <span class="carousel-control-prev-icon" aria-hidden="false"></span>
+    <span style="color:light"><b>Previous</b></span>
+  </button>
+  <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="next">
+    <span class="carousel-control-next-icon" aria-hidden="false"></span>
+    <span style="color:light"><b>Next</b></span>
+  </button>
+</div>
+</div>
+
+    {% if name %}  <!-- if name parameter is given in views.py request then print this -->
+    <h1 class="my-4 text-center" style="font-family:Chaparral Pro Light;">Hello {{ name }}, Chose from our store of Ice Creams</h1>
+    {% else %}
+    <h1 class="my-4 text-center" style="font-family:Chaparral Pro Light;"> Hello Customer, Chose from our store of Ice Creams</h1>
+    {% endif %}
+
+<div class="container">
+  <div class="row row-cols-1 mb-5 row-cols-sm-2 row-cols-md-3 g-3">
+
+
+        {% for dtl in dtls %}
+        <div class="col">
+          <div class="card shadow-sm">
+           <img src="{{dtl.img.url}}" width="360" height="250">
+            <div class="card-body">
+              <p class="card-text" style="font-size: 20px"><b>{{dtl.name}} </b> </p>
+              <div class="d-flex justify-content-between align-items-center">
+                <div class="btn-group">
+<!-- Relative Url -->
+                  <button type="button" class="btn btn-sm btn-outline-secondary" onclick="window.location.href = '{% url 'app1:Ice_cream_details' dtl.icecream_slug %}'">View</button>
+<!-- <button type="button" class="btn btn-sm btn-outline-secondary">Buy</button> -->
+                </div>
+                <small class="text-body-secondary" style="font-size: 18px" >₹{{dtl.price}}/- full pack</small>
+              </div>
+            </div>
+          </div>
+        </div>
+        {% endfor %}
+  
+      </div>
+
+      {% if request.COOKIES.recent_items %}
+      <div class='title mb-5' >  Recent Items -
+      {{ request.COOKIES.recent_items }}
+    </div>
+      {% endif %}
+
+</div>
+
+
+{% endblock content %}
+
+
+{% block title %}
+IceCreams
+{% endblock title %}
