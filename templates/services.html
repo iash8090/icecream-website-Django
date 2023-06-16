@@ -27,9 +27,9 @@
               <div class="media-body order-2 order-lg-1">
               
 <!-- standard way to call dynamic url -->
-              <!--  <a href='/icd/{{dtl.id}}'>  -->
+              <!--  <a href='/icd/{{dtl.icecream_slug}}'>  -->
 <!-- Relative way to call dynamic url-->
-                <a href = '{% url 'app1:Ice_cream_details' dtl.id %}'>
+                <a href = "{% url 'app1:Ice_cream_details' dtl.icecream_slug %}">
                 <h5 class="mt-0 font-weight-bold mb-2">{{dtl.name}}</h5></a>
                 <p class="font-italic text-muted mb-0 small">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Suscipit fuga autem maiores necessitatibus.</p>
                 <div class="d-flex align-items-center justify-content-between mt-1">
