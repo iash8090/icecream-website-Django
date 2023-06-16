@@ -53,17 +53,21 @@ def contact(request):
 
 
 def iceCreamDetails(request,slugID):
-    product = ICDetail.objects.get(icecream_slug=slugID)
-    if product:
-        context = {'product':product}
-        d=request.COOKIES.setdefault('recent_items ','')
-        if product.name not in d.split('\n'):
-            d=d+'\n'+product.name
-            d=d.strip('\n')
-        response = render(request, "iceCreamDetails.html", context)
-        response.set_cookie('recent_items',d)
-        return response
-    
+    try:
+        product = ICDetail.objects.get(icecream_slug=slugID)
+        if product:
+            context = {'product':product}
+            d=request.COOKIES.setdefault('recent_items ','')
+            if product.name not in d.split('\n'):
+                d=d+'\n'+product.name
+                d=d.strip('\n')
+            response = render(request, "iceCreamDetails.html", context)
+            response.set_cookie('recent_items',d)
+            return response
+        else:
+            return HttpResponse("ID Not found")
+    except:
+        pass       
 
 #  function based views for REST API
 
