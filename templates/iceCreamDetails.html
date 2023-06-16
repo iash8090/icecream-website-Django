@@ -8,7 +8,7 @@
 
 
 <div class="container">
-    <button type="button" class="btn btn-secondary mt-2 mb-0 " onclick="window.location.href = '/'"><span class="bi bi-arrow-return-left"></span> Back </button>
+    <button type="button" class="btn btn-secondary mt-2 mb-0 " onclick="history.back()"><span class="bi bi-arrow-return-left"></span> Back </button>
     <div class="card">
         
         <div class="container-fliud">
@@ -62,8 +62,9 @@
                     </h4>
 
                     <div class="action">
-                        <button class="add-to-cart btn btn-secondary" type="button" >BUY</button>
-                        <button class="like btn btn-secondary" type="button"><span class="fa fa-heart"></span></button>
+                        <button class="add-to-cart btn btn-secondary" >BUY</button>
+                        <button class="cart add-to-cart btn btn-secondary" id="ID-{{product.id}}">Add To Cart</button>
+                        <button class="like btn btn-secondary"><span class="fa fa-heart"></span></button>
                     </div>
                 </div>
             </div>
@@ -71,10 +72,29 @@
     </div>
 </div>
 
-
-
-
 {% endblock content %}
+
+{% block js %}
+<script>
+console.log("new js ")
+if (localStorage.getItem('cart') == null) {
+    var cart = {};
+}
+else {
+    cart = JSON.parse(localStorage.getItem('cart'));
+}
+// JQuery
+$(document).ready(function(e) { 
+$('.cart').click(function(){
+    console.log('clicked');
+    var prd_id = this.id.toString();
+    console.log(prd_id);
+});
+});
+
+</script>
+{% endblock js %}
+
 
 {% block title %}
 Ice Cream Details
