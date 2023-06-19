@@ -3,9 +3,7 @@
 {% block content %}
 
 
-<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
 <link rel="stylesheet" type="text/css" href="/static/css/iceCreamDetails.css">
-
 
 <div class="container">
     <button type="button" class="btn btn-secondary mt-2 mb-0 " onclick="history.back()"><span class="bi bi-arrow-return-left"></span> Back </button>
@@ -63,7 +61,35 @@
 
                     <div class="action">
                         <button class="add-to-cart btn btn-secondary" >BUY</button>
-                        <button class="cart add-to-cart btn btn-secondary" id="ID-{{product.id}}">Add To Cart</button>
+                        
+                        {% if request.user.is_anonymous %}
+                            <!-- Button trigger modal -->
+                            <button type="button" class="add-to-cart btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                                Add To Cart
+                            </button>
+                            <!-- Modal -->
+                            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                <div class="modal-dialog modal-dialog-centered">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                    <h3 class="modal-title" id="exampleModalLabel">You are not logged in.</h3>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                    <h5> Please Login to add item in Cart </h5>
+                                    </div>
+                                    <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                    <button type="button" class="btn btn-primary" onclick="window.location.href='/users/login'">Login</button>
+                                    </div>
+                                </div>
+                                </div>
+                            </div>                      
+                        {% else %}
+                        <button class="cart add-to-cart btn btn-secondary" id="ID-{{product.id}}">Add To Cart 
+                        </button>
+                        {% endif %}
+                        
                         <button class="like btn btn-secondary"><span class="fa fa-heart"></span></button>
                     </div>
                 </div>
@@ -76,21 +102,31 @@
 
 {% block js %}
 <script>
-console.log("new js ")
-if (localStorage.getItem('cart') == null) {
-    var cart = {};
-}
-else {
-    cart = JSON.parse(localStorage.getItem('cart'));
-}
-// JQuery
-$(document).ready(function() { 
-$('.cart').click(function(){
-    console.log('clicked');
-    var prd_id = this.id.toString();
-    console.log(prd_id);
-});
-});
+
+    
+    if (sessionStorage.getItem('cart') == null) {
+        var cart = {};
+    }
+    else {
+        cart = JSON.parse(sessionStorage.getItem('cart'));
+    }
+    // JQuery
+    $(document).ready(function() { 
+    $('.cart').click(function(){
+    //    console.log('clicked');
+        var prd_id = this.id.toString();
+    //    console.log(prd_id);
+        if (cart[prd_id] != undefined){
+            cart[prd_id] = cart[prd_id] + 1;
+        }
+        else{
+            cart[prd_id] = 1;
+        }
+        console.log(cart);
+        sessionStorage.setItem('cart',JSON.stringify(cart))
+        document.getElementById('cartcount').innerHTML = Object.keys(cart).length;
+    });
+    });
 
 </script>
 {% endblock js %}
