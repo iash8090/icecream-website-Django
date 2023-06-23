@@ -18,7 +18,7 @@ def index(request):
 #    return HttpResponse("THis is index Page from app1")
     query_set = ICDetail.objects.all()[:9]
     first = ICDetail.objects.filter(id__range=(6,9))
-    context = {'name': None, 'dtls':query_set,'first':first}
+    context = {'name': None, 'dtls':query_set}
     if request.user.is_authenticated:
         context['name'] = request.user.username
 
@@ -37,6 +37,15 @@ def services(request):
 
 def contact(request):
     try:
+        catproducts = ICDetail.objects.values('name', 'price')
+        print(catproducts)
+        cats = {item['name'] for item in catproducts}
+        print("\n\ncats - ", cats)
+        for cat in cats:
+            print(cat)
+            prod= ICDetail.objects.filter(name = cat)
+
+
         if request.method == 'POST':
             name = request.POST['name']
             email = request.POST.get('email')
@@ -67,7 +76,17 @@ def iceCreamDetails(request,slugID):
         else:
             return HttpResponse("ID Not found")
     except:
-        pass       
+        pass    
+
+
+def cartProduct(request):
+    try:    
+        query_set = ICDetail.objects.all()[:9]
+        context = {'dtls':query_set}
+        return render(request, "cartProduct.html", context)
+    except:
+        pass
+
 
 #  function based views for REST API
 
