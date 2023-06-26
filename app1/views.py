@@ -37,15 +37,6 @@ def services(request):
 
 def contact(request):
     try:
-        catproducts = ICDetail.objects.values('name', 'price')
-        print(catproducts)
-        cats = {item['name'] for item in catproducts}
-        print("\n\ncats - ", cats)
-        for cat in cats:
-            print(cat)
-            prod= ICDetail.objects.filter(name = cat)
-
-
         if request.method == 'POST':
             name = request.POST['name']
             email = request.POST.get('email')
@@ -81,11 +72,10 @@ def iceCreamDetails(request,slugID):
 
 def cartProduct(request):
     try:    
-        query_set = ICDetail.objects.all()[:9]
-        context = {'dtls':query_set}
-        return render(request, "cartProduct.html", context)
+        return render(request, "cartProduct.html")
     except:
         pass
+
 
 
 #  function based views for REST API
