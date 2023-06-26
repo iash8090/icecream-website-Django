@@ -77,7 +77,6 @@ def cartProduct(request):
         pass
 
 
-
 #  function based views for REST API
 
 @api_view(['GET'])
@@ -88,14 +87,7 @@ def get_all_IceCreams(request):
         serializer = ICDetailSerializer(dtls, many=True)
         return Response(serializer.data)
     
-    # elif request.method == 'POST' & request.user.is_staff:
-    #     serializer = ICDetailSerializer(data=request.data)
-    #     if serializer.is_valid():
-    #         serializer.save()
-    #         return Response(serializer.data, status=status.HTTP_201_CREATED)
 
-
-# Method 1 for POST Api
 # Class based views for REST API
 class PostView(APIView):
     permission_classes = [permissions.IsAdminUser]
@@ -106,15 +98,3 @@ class PostView(APIView):
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-
-# Method 2 for POST Api
-
-# @api_view(['POST'])
-# @permission_classes([IsAdminUser])
-# # @parser_classes([MultiPartParser, FormParser])
-# def post_new_IceCreams(request):
-#     serializer = ICDetailSerializer(data=request.data)
-#     if serializer.is_valid():
-#         serializer.save()
-#         return Response(serializer.data, status=status.HTTP_201_CREATED)
-#     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
