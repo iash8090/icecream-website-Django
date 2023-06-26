@@ -17,14 +17,14 @@
                     
                     <div class="preview-pic tab-content">
                         
-                      <div class="tab-pane active" id="pic-1"><img src="{{product.img.url}}" /></div>
+                      <div class="tab-pane active" id="pic"><img id="pic-{{product.id}}" src="{{product.img.url}}" /></div>
                         <div class="tab-pane" id="pic-2"><img src="{{product.img.url}}" /></div>
                         <div class="tab-pane" id="pic-3"><img src="{{product.img.url}}" /></div>
                         <div class="tab-pane" id="pic-4"><img src="{{product.img.url}}" /></div>
                         <div class="tab-pane" id="pic-5"><img src="{{product.img.url}}" /></div>
                     </div>
                     <ul class="preview-thumbnail nav nav-tabs">
-                      <li class="active"><a data-target="#pic-1" data-toggle="tab"><img src="{{product.img.url}}" /></a></li>
+                      <li class="active"><a data-target="#pic" data-toggle="tab"><img src="{{product.img.url}}" /></a></li>
                       <li><a data-target="#pic-2" data-toggle="tab"><img src="{{product.img.url}}" /></a></li>
                       <li><a data-target="#pic-3" data-toggle="tab"><img src="{{product.img.url}}" /></a></li>
                       <li><a data-target="#pic-4" data-toggle="tab"><img src="{{product.img.url}}" /></a></li>
@@ -33,7 +33,7 @@
                     
                 </div>
                 <div class="details col-md-6">
-                    <h3 class="product-title">{{product.name}}</h3>
+                    <h3 class="product-title" id="name-{{product.id}}">{{product.name}}</h3>
                     <div class="rating">
                         <div class="stars">
                             <span class="fa fa-star checked"></span>
@@ -46,7 +46,7 @@
                     </div>
                     <p class="product-description"> {{product.Desc | safe }}</p>
                     {% comment %} <p class="vote"><strong>91%</strong> of buyers enjoyed this product! <strong>(87 votes)</strong></p> {% endcomment %}
-                    <h4 class="price" >price: ₹<span id="dynamicPrice"> {{product.price}}</span></h4>
+                    <h4 class="price" >price: ₹<span id="dynamicPrice-{{product.id}}"> {{product.price}}</span></h4>
                     <h4 class="weight" >Weight: <span id="dynamicWeight"> {{product.quantity}} ml</span></h4>
                     
                     <h4 class="sizes">Quantity:
@@ -86,8 +86,10 @@
                                 </div>
                             </div>                      
                         {% else %}
-                        <button class="cart add-to-cart btn btn-secondary" id="ID-{{product.id}}">Add To Cart 
+                        <span id="pid-{{product.id}}">
+                        <button class="cart add-to-cart btn btn-secondary" id="{{product.id}}">Add To Cart 
                         </button>
+                        </span>
                         {% endif %}
                         
                         <button class="like btn btn-secondary"><span class="fa fa-heart"></span></button>
@@ -103,30 +105,36 @@
 {% block js %}
 <script>
 
-    
+// Find out the cart item from session storage
     if (sessionStorage.getItem('cart') == null) {
         var cart = {};
     }
     else {
         cart = JSON.parse(sessionStorage.getItem('cart'));
+        document.getElementById('cartcount').innerHTML = Object.keys(cart).length;
     }
-    // JQuery
+// JQuery
+// If 'Add to cart' is clicked, add/minus the item
     $(document).ready(function() { 
     $('.cart').click(function(){
-    //    console.log('clicked');
-        var prd_id = this.id.toString();
-    //    console.log(prd_id);
+        var prd_id = this.id.toString();   // prd_id= id-3,id-1.... 
         if (cart[prd_id] != undefined){
-            cart[prd_id] = cart[prd_id] + 1;
+            cart[prd_id][0] = cart[prd_id][0] + 1;
+            qty= cart[prd_id][0]
+
         }
         else{
-            cart[prd_id] = 1;
+            qty = 1;
+            prd_name = document.getElementById('name-'+prd_id).innerHTML;
+            prd_img = document.getElementById('pic-'+prd_id).src;
+            prd_price = document.getElementById('dynamicPrice-'+prd_id).innerHTML;
+            cart[prd_id] = [qty, prd_name, prd_img, prd_price];
         }
-        console.log(cart);
         sessionStorage.setItem('cart',JSON.stringify(cart))
         document.getElementById('cartcount').innerHTML = Object.keys(cart).length;
     });
     });
+    
 
 </script>
 {% endblock js %}
