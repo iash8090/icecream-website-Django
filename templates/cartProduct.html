@@ -3,7 +3,7 @@
 {% block content %}
 {% load static %}
 
-<link rel="stylesheet" type="text/css" href="/static/css/cartProduct.css">
+<link rel="stylesheet" type="text/css" href="{% static '/css/cartProduct.css' %}">
 
 
 <h2 style="font-size:300% ;  text-align:center"> Working on It </h2>
@@ -16,7 +16,7 @@
             <h4 class="heading">Shopping Bag</h4>
         </div>
         <div class="col-7">
-            <div class="row text-right">
+            <div class="row d-flex text-right">
                 <div class="col-3">
                     <h6 class="mt-2">Price</h6>
                 </div>
@@ -33,6 +33,7 @@
         </div>
     </div>
     <div id="items">
+
     </div>
     <div class="row justify-content-center">
         <div class="col-lg-12">
@@ -43,7 +44,7 @@
                             <div>
                                 <button class="btn btn-sm bg-light border border-dark" onclick="history.back()">GO BACK</button>
                             </div>
-                            <div style="font-size:120%"><b><u>Total Amount</u> - ₹ <span> 23.49 </b> </span>
+                            <div style="font-size:120%; margin-right: 5%; margin-left: 5%;"><b><u>Total Amount</u> - ₹ <span id="tPrice"> 23.49 </b> </span>
                                 <h6 class="mb-1 align-center" style="font-size:120%"></h6>
                             </div>
                             <div>
@@ -62,6 +63,9 @@
 
 {% block js %}
 <script src="{% static '/js/cart.js' %}">
+
+    
+
 </script>
 {% endblock js %}
 
