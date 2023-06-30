@@ -37,6 +37,16 @@ def services(request):
 
 def contact(request):
     try:
+        # catproducts = ICDetail.objects.values('name', 'price')
+        # print(catproducts)
+        # cats = {item['name'] for item in catproducts}
+        # print("\n\ncats - ", cats)
+        # for cat in cats:
+        #     print(cat)
+        #     prod= ICDetail.objects.filter(name = cat)
+        #     print(prod)
+
+
         if request.method == 'POST':
             name = request.POST['name']
             email = request.POST.get('email')
@@ -87,7 +97,14 @@ def get_all_IceCreams(request):
         serializer = ICDetailSerializer(dtls, many=True)
         return Response(serializer.data)
     
+    # elif request.method == 'POST' & request.user.is_staff:
+    #     serializer = ICDetailSerializer(data=request.data)
+    #     if serializer.is_valid():
+    #         serializer.save()
+    #         return Response(serializer.data, status=status.HTTP_201_CREATED)
 
+
+# Method 1 for POST Api
 # Class based views for REST API
 class PostView(APIView):
     permission_classes = [permissions.IsAdminUser]
@@ -98,3 +115,15 @@ class PostView(APIView):
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
+
+# Method 2 for POST Api
+
+# @api_view(['POST'])
+# @permission_classes([IsAdminUser])
+# # @parser_classes([MultiPartParser, FormParser])
+# def post_new_IceCreams(request):
+#     serializer = ICDetailSerializer(data=request.data)
+#     if serializer.is_valid():
+#         serializer.save()
+#         return Response(serializer.data, status=status.HTTP_201_CREATED)
+#     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
