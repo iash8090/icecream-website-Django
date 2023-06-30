@@ -33,7 +33,7 @@
                     
                 </div>
                 <div class="details col-md-6">
-                    <h3 class="product-title" id="name-{{product.id}}">{{product.name}}</h3>
+                    <h3 class="product-title" id="name">{{product.name}}</h3>
                     <div class="rating">
                         <div class="stars">
                             <span class="fa fa-star checked"></span>
@@ -46,7 +46,7 @@
                     </div>
                     <p class="product-description"> {{product.Desc | safe }}</p>
                     {% comment %} <p class="vote"><strong>91%</strong> of buyers enjoyed this product! <strong>(87 votes)</strong></p> {% endcomment %}
-                    <h4 class="price" >price: ₹<span id="dynamicPrice-{{product.id}}"> {{product.price}}</span></h4>
+                    <h4 class="price" >price: ₹<span id="dynamicPrice"> {{product.price}}</span></h4>
                     <h4 class="weight" >Weight: <span id="dynamicWeight"> {{product.quantity}} ml</span></h4>
                     
                     <h4 class="sizes">Quantity:
@@ -86,10 +86,8 @@
                                 </div>
                             </div>                      
                         {% else %}
-                        <span id="pid-{{product.id}}">
-                        <button class="cart add-to-cart btn btn-secondary" id="{{product.id}}">Add To Cart 
+                        <button class="add_to_cart add-to-cart btn btn-secondary" id="{{product.id}}">Add To Cart
                         </button>
-                        </span>
                         {% endif %}
                         
                         <button class="like btn btn-secondary"><span class="fa fa-heart"></span></button>
@@ -116,19 +114,20 @@
 // JQuery
 // If 'Add to cart' is clicked, add/minus the item
     $(document).ready(function() { 
-    $('.cart').click(function(){
-        var prd_id = this.id.toString();   // prd_id= id-3,id-1.... 
+    $('.add_to_cart').click(function(){
+        var prd_id = this.id.toString();   
         if (cart[prd_id] != undefined){
-            cart[prd_id][0] = cart[prd_id][0] + 1;
-            qty= cart[prd_id][0]
+            cart[prd_id][0] += 1;
 
         }
         else{
             qty = 1;
-            prd_name = document.getElementById('name-'+prd_id).innerHTML;
-            prd_img = document.getElementById('pic-'+prd_id).src;
-            prd_price = document.getElementById('dynamicPrice-'+prd_id).innerHTML;
-            cart[prd_id] = [qty, prd_name, prd_img, prd_price];
+            var slug_name = "{{product.icecream_slug}}"
+            var prd_name = "{{product.name}}"
+//            var prd_img = document.getElementById('pic-'+prd_id).src;
+            var prd_img = "{{product.img.url}}"
+            var prd_price = "{{product.price}}"
+            cart[prd_id] = [qty, prd_name, prd_img, prd_price, slug_name];
         }
         sessionStorage.setItem('cart',JSON.stringify(cart))
         document.getElementById('cartcount').innerHTML = Object.keys(cart).length;
