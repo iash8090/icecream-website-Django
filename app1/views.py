@@ -33,7 +33,6 @@ def services(request):
     query_set = ICDetail.objects.all()[9:13]
     context = {'dtls': query_set}
     return render(request,'services.html', context)
-#    return HttpResponse("THis is services Page from app1")
 
 def contact(request):
     try:
@@ -86,6 +85,11 @@ def cartProduct(request):
     except:
         pass
 
+def checkOut(request):
+    try:
+        return render(request, "checkOut.html")
+    except:
+        pass
 
 #  function based views for REST API
 
