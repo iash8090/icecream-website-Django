@@ -60,10 +60,11 @@
                     </h4>
 
                     <div class="action">
-                        <button class="add-to-cart btn btn-secondary" >BUY</button>
+                        
                         
                         {% if request.user.is_anonymous %}
                             <!-- Button trigger modal -->
+                            <button type="button" class="add-to-cart btn btn-secondary" data-bs-toggle="modal" data-bs-target="#exampleModal">  BUY</button>
                             <button type="button" class="add-to-cart btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
                                 Add To Cart
                             </button>
@@ -88,9 +89,10 @@
                         {% else %}
                         <button class="add_to_cart add-to-cart btn btn-secondary" id="{{product.id}}">Add To Cart
                         </button>
+                        <button class="buy add-to-cart btn btn-secondary" onclick='window.location.href="/cartProduct"' id="{{product.id}}">BUY</button>
                         {% endif %}
                         
-                        <button class="like btn btn-secondary"><span class="fa fa-heart"></span></button>
+                        {% comment %} <button class="like btn btn-secondary"><span class="fa fa-heart"></span></button> {% endcomment %}
                     </div>
                 </div>
             </div>
@@ -105,7 +107,7 @@
 
 // Find out the cart item from session storage
     if (sessionStorage.getItem('cart') == null) {
-        var cart = {};
+        let cart = {};
     }
     else {
         cart = JSON.parse(sessionStorage.getItem('cart'));
@@ -114,20 +116,21 @@
 // JQuery
 // If 'Add to cart' is clicked, add/minus the item
     $(document).ready(function() { 
-    $('.add_to_cart').click(function(){
-        var prd_id = this.id.toString();   
+    $('.add_to_cart, .buy').click(function(){
+        let prd_id = this.id.toString();   
         if (cart[prd_id] != undefined){
             cart[prd_id][0] += 1;
 
         }
         else{
             qty = 1;
-            var slug_name = "{{product.icecream_slug}}"
-            var prd_name = "{{product.name}}"
-//            var prd_img = document.getElementById('pic-'+prd_id).src;
-            var prd_img = "{{product.img.url}}"
-            var prd_price = "{{product.price}}"
-            cart[prd_id] = [qty, prd_name, prd_img, prd_price, slug_name];
+            let prd_name = "{{product.name}}"
+//            let prd_img = document.getElementById('pic-'+prd_id).src;
+            let prd_img = "{{product.img.url}}"
+            let prd_price = "{{product.price}}"
+            let slug_name = "{{product.icecream_slug}}"
+            let prd_ttl_price = "{{product.price}}"
+            cart[prd_id] = [qty, prd_name, prd_img, prd_price, slug_name, prd_ttl_price];
         }
         sessionStorage.setItem('cart',JSON.stringify(cart))
         document.getElementById('cartcount').innerHTML = Object.keys(cart).length;
