@@ -13,7 +13,8 @@ urlpatterns = [
 # Dynamic url
     path('icd/<slug:slugID>', views.iceCreamDetails, name='Ice_cream_details'),
     path('cartProduct/', views.cartProduct, name='cartProduct'),
-    
+    path('checkOut/', views.checkOut, name='checkOut'),
+      
 # API url to GET data using function based View
     path('api/get/', views.get_all_IceCreams, name='get_api'),
 # API url to POST data using Class based View
