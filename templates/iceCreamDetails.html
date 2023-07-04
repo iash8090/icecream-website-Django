@@ -119,11 +119,10 @@
     $('.add_to_cart, .buy').click(function(){
         let prd_id = this.id.toString();   
         if (cart[prd_id] != undefined){
-            cart[prd_id][0] += 1;
-
+            pass
         }
         else{
-            qty = 1;
+            let qty = document.getElementById('quantity').value;
             let prd_name = "{{product.name}}"
 //            let prd_img = document.getElementById('pic-'+prd_id).src;
             let prd_img = "{{product.img.url}}"
