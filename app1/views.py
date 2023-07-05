@@ -94,12 +94,17 @@ def checkOut(request):
 #  function based views for REST API
 
 @api_view(['GET'])
-@permission_classes([IsAuthenticated])
-def get_all_IceCreams(request):
+#@permission_classes([IsAuthenticated])
+def get_all_IceCreams(request, id=None):
     if request.method == 'GET':
+        if id:
+            dtls = ICDetail.objects.get(id=id)
+            serializer = ICDetailSerializer(dtls)
+            return Response({"staus":"Success", "data": serializer.data}, status=status.HTTP_200_OK)
+        
         dtls = ICDetail.objects.all()
         serializer = ICDetailSerializer(dtls, many=True)
-        return Response(serializer.data)
+        return Response(serializer.data, status=status.HTTP_200_OK)
     
     # elif request.method == 'POST' & request.user.is_staff:
     #     serializer = ICDetailSerializer(data=request.data)
