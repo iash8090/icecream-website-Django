@@ -17,6 +17,7 @@ urlpatterns = [
       
 # API url to GET data using function based View
     path('api/get/', views.get_all_IceCreams, name='get_api'),
+    path('api/get/<int:id>', views.get_all_IceCreams, name='get_api_id'),
 # API url to POST data using Class based View
     path('api/post/', PostView.as_view(), name='post_api'),
     
