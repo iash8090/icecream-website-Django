@@ -2,7 +2,15 @@
 website is deployed on Pythonanywhere.com 
 > http://iash8090.pythonanywhere.com/
 ## About
-This is an Ice Cream Website Project based upon **Django Framework**. Still improving it.
+This is an Ice Cream Website Project based upon **Django Framework**. Still improving it.  
+Here You Can:-
+- Sign-up & Login to website
+- Look for different IceCreams with their details
+- Add items to your Cart
+- or directly Buy item (But IceCreams won't be delivered to your home 😅)
+- remove items from Cart at final page
+- Even send feedback
+- GET & POST API links are created
 
 ## Commands to run after dwonloading project :
 
