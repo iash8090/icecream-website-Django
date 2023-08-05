@@ -42,6 +42,15 @@
                 <a class="nav-link " href="/contact">Contact Us</a>
               </li>
             </ul>
+            {% url 'app1:home' as home_url %}
+            {% if request.path == home_url %}
+            <form class="d-flex" method="GET" >
+              <input class="form-control" name ="search_iceCream" type="search" value="{{srch_iceCream}}" placeholder="Search" aria-label="Search"/>
+              <button class="btn btn-outline-success mx-3" type="submit">Search</button>
+            </form>
+            {% endif %}
+          
+          
             {% if request.user.is_authenticated %}
             <div>
               <a class="nav-link" href="/cartProduct" >
@@ -78,8 +87,6 @@
             </div>
             {% endwith %}
             {% endif %}
-
-            </form>
           </div>
         </div>
       </nav>
