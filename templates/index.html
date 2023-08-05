@@ -53,9 +53,9 @@
 </div>
 
     {% if name %}  <!-- if name parameter is given in views.py request then print this -->
-    <h1 class="my-4 text-center" style="font-family:Chaparral Pro Light;">Hello {{ name }}, Chose from our store of Ice Creams</h1>
+    <h1 class="my-4 text-center" style="font-family:Chaparral Pro Light;">Hello {{ name }}, Choose from our store of Ice Creams</h1>
     {% else %}
-    <h1 class="my-4 text-center" style="font-family:Chaparral Pro Light;"> Hello Customer, Chose from our store of Ice Creams</h1>
+    <h1 class="my-4 text-center" style="font-family:Chaparral Pro Light;"> Hello Customer, Choose from our store of Ice Creams</h1>
     {% endif %}
 
 <div class="container">
@@ -79,6 +79,13 @@
             </div>
           </div>
         </div>
+        
+<!-- If there is no data in record -->
+        {% empty %}
+        <div class="container my-3" style="text-align: center">
+        <h2>  No IceCream Found </h2>
+        </div>
+
         {% endfor %}
   
       </div>
