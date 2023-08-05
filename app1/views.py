@@ -15,24 +15,34 @@ from .serializers import ICDetailSerializer
 
 # create your views here
 def index(request):
-#    return HttpResponse("THis is index Page from app1")
     query_set = ICDetail.objects.all()[:9]
-    first = ICDetail.objects.filter(id__range=(6,9))
+    # first = ICDetail.objects.filter(id__range=(6,9))
     context = {'name': None, 'dtls':query_set}
+    if request.method == "GET":
+        srch_iceCream = request.GET.get("search_iceCream")
+        if srch_iceCream :
+# __icontains -> when you want to search using even single character
+            query_set = ICDetail.objects.filter(name__icontains=srch_iceCream)
+            context = {'name': None, 'dtls':query_set, 'srch_iceCream':srch_iceCream}
+
     if request.user.is_authenticated:
         context['name'] = request.user.username
 
 #    messages.success(request, "Welcome to Our Website!")
     return render(request, 'index.html', context)
 
-def about(request):
 
+def about(request):
+#    return HttpResponse("THis is About Page from app1")
     return render(request,'about.html')
+
+
 
 def services(request):
     query_set = ICDetail.objects.all()[9:13]
     context = {'dtls': query_set}
     return render(request,'services.html', context)
+
 
 def contact(request):
     try:
