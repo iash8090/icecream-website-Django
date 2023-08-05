@@ -6,6 +6,7 @@ This is an Ice Cream Website Project based upon **Django Framework**. Still impr
 Here You Can:-
 - Sign-up & Login to website
 - Look for different IceCreams with their details
+- Search Specific IceCream
 - Add items to your Cart
 - or directly Buy item (But IceCreams won't be delivered to your home 😅)
 - remove items from Cart at final page
