@@ -1,6 +1,8 @@
 {% extends 'base.html' %}
 
 {% block content %}
+
+{% load static %}
     <link rel="stylesheet" type="text/css" href="/static/css/sign-in.css">
 <div class="wrapper fadeInDown">
   <div id="formContent">
@@ -26,7 +28,7 @@
       <div class="d-flex justify-content-center links">
         Don't have an account?  <a class="underlineHover" href="/users/register">Sign Up</a>
       </div>
-      <a class="underlineHover" href="#">Forgot Password?</a>
+      <a class="underlineHover" href="{% url 'reset-password' %}">Forgot Password?</a>
       <p class="text-body-secondary">&copy; 2017–2023</p>
     </div>
 
