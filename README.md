@@ -1,5 +1,5 @@
 # IceCream Website
-website is deployed on Pythonanywhere.com 
+Website is deployed on Pythonanywhere.com 
 > http://iash8090.pythonanywhere.com/
 ## About
 This is an Ice Cream Website Project based upon **Django Framework**. Still improving it.  
